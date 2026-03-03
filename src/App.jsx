@@ -13,6 +13,7 @@ import {
 // Import des composants système
 import Taskbar from './components/OS/Taskbar';
 import Window from './components/OS/Window';
+import BootScreen from './components/OS/BootScreen'; // Nouvel import pour l'animation
 import { useWindowManager } from './hooks/useWindowManager';
 import wallpaperImg from './assets/abstract-digital-grid-black-background.jpg';
 
@@ -27,6 +28,7 @@ import Contact from './components/Apps/Contacts';
 function App() {
   const { openApps, focusedApp, zIndexCounter, openApp, closeApp, focusApp } = useWindowManager();
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isBooting, setIsBooting] = useState(true); // État pour l'animation de démarrage
 
   // Mise à jour de l'horloge du bureau toutes les secondes
   useEffect(() => {
@@ -78,6 +80,20 @@ function App() {
       color: "#f43f5e", 
       type: "app" 
     },
+    github: { 
+      title: "GITHUB", 
+      icon: <Github size={24} />, 
+      color: "#ffffff", 
+      type: "link", 
+      url: "https://github.com/votre-pseudo" 
+    },
+    linkedin: { 
+      title: "LINKEDIN", 
+      icon: <Linkedin size={24} />, 
+      color: "#0077b5", 
+      type: "link", 
+      url: "https://linkedin.com/in/votre-nom" 
+    },
   };
 
   // Gestionnaire de clic centralisé
@@ -89,6 +105,11 @@ function App() {
       openApp(id);
     }
   };
+
+  // Si le système est en cours de démarrage, on affiche uniquement le BootScreen
+  if (isBooting) {
+    return <BootScreen onFinish={() => setIsBooting(false)} />;
+  }
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-[#050b10] relative text-white font-sans selection:bg-cyan-500/30">
