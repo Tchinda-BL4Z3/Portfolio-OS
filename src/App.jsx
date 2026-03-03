@@ -80,20 +80,6 @@ function App() {
       color: "#f43f5e", 
       type: "app" 
     },
-    github: { 
-      title: "GITHUB", 
-      icon: <Github size={24} />, 
-      color: "#ffffff", 
-      type: "link", 
-      url: "https://github.com/votre-pseudo" 
-    },
-    linkedin: { 
-      title: "LINKEDIN", 
-      icon: <Linkedin size={24} />, 
-      color: "#0077b5", 
-      type: "link", 
-      url: "https://linkedin.com/in/votre-nom" 
-    },
   };
 
   // Gestionnaire de clic centralisé
