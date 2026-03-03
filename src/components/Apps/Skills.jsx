@@ -141,11 +141,17 @@ const SKILLS_DATA = [
   {
     category: "05. DEV_TOOLS",
     skills: [
+      // { 
+      //   name: "Figma", 
+      //   desc: "Prototypage UI/UX et conception graphique", 
+      //   details: ["Layout Design", "Components", "Prototyping"],
+      //   icon: "figma" 
+      // },
       { 
-        name: "Figma", 
-        desc: "Prototypage UI/UX et conception graphique", 
-        details: ["Layout Design", "Components", "Prototyping"],
-        icon: "figma" 
+        name: "VS Code", 
+        desc: "Environnement de développement et édition de code source", 
+        details: ["IntelliSense & Debug", "Extensions Ecosystem", "Integrated Terminal / Git"],
+        icon: "vscode" 
       },
       { 
         name: "GitHub", 
