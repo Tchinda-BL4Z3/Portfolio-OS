@@ -16,7 +16,7 @@ import Window from './components/OS/Window';
 import { useWindowManager } from './hooks/useWindowManager';
 import wallpaperImg from './assets/abstract-digital-grid-black-background.jpg';
 
-// Import des contenus d'applications (Vérifie bien que ces fichiers existent)
+// Import des contenus d'applications
 import About from './components/Apps/About';
 import Projects from './components/Apps/Projects';
 import Terminal from './components/Apps/Terminal';
@@ -35,8 +35,6 @@ function App() {
   }, []);
 
   // Configuration des applications et des liens
-  // type: "app" pour ouvrir une fenêtre interne
-  // type: "link" pour ouvrir un onglet externe
   const APP_CONFIG = {
     about: { 
       title: "HOME", 
@@ -73,26 +71,12 @@ function App() {
       color: "#22c55e", 
       type: "app" 
     },
-    // github: { 
-    //   title: "GITHUB", 
-    //   icon: <Github size={24} />, 
-    //   color: "#ffffff", 
-    //   type: "link", 
-    //   url: "https://github.com/ton-pseudo" // REMPLACE PAR TON LIEN
-    // },
-    // linkedin: { 
-    //   title: "LINKEDIN", 
-    //   icon: <Linkedin size={24} />, 
-    //   color: "#0077b5", 
-    //   type: "link", 
-    //   url: "https://linkedin.com/in/ton-nom" // REMPLACE PAR TON LIEN
-    // },
     contact: { 
       title: "CONTACT", 
+      component: <Contact />, 
       icon: <Mail size={24} />, 
       color: "#f43f5e", 
-      type: "link", 
-      url: "mailto:ton-email@exemple.com" 
+      type: "app" 
     },
   };
 
@@ -116,7 +100,6 @@ function App() {
           className="w-full h-full object-cover opacity-100 select-none pointer-events-none"
           alt="wallpaper"
         />
-        {/* Overlay progressif pour améliorer la lisibilité des icônes */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050b10] via-transparent to-[#050b10]/40 opacity-70"></div>
       </div>
 
@@ -164,7 +147,6 @@ function App() {
             isFocused={focusedApp === id}
             zIndex={focusedApp === id ? zIndexCounter : 10}
           >
-            {/* Le composant spécifique (Terminal, Projects, etc.) est rendu ici */}
             {APP_CONFIG[id].component}
           </Window>
         ))}
@@ -184,17 +166,14 @@ function App() {
                             className="relative group p-3.5 rounded-2xl transition-all duration-300 hover:bg-white/5 active:scale-75"
                             style={{ color: app.color }}
                         >
-                            {/* Icône avec effet néon */}
                             <div className="filter drop-shadow-[0_0_10px_currentColor] transition-transform group-hover:-translate-y-2 duration-300">
                                 {app.icon}
                             </div>
 
-                            {/* Info-bulle (Label) au survol */}
                             <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-[#050b10]/95 text-white text-[8px] px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all border border-cyan-500/20 pointer-events-none uppercase tracking-[0.3em] whitespace-nowrap shadow-2xl">
                                 {app.title}
                             </div>
 
-                            {/* Indicateur lumineux (Barre ou Point) */}
                             {app.type === "app" && isOpen && (
                                 <div 
                                     className={`absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-full transition-all duration-500 ${isFocused ? 'w-5 h-[2px]' : 'w-1 h-1 opacity-50'}`}
