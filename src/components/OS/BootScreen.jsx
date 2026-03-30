@@ -20,7 +20,7 @@ export default function BootScreen({ onFinish }) {
     BOOT_LOGS.forEach((log, index) => {
       setTimeout(() => {
         setLogs(prev => [...prev, log]);
-      }, index * 300); // 0.3s entre chaque ligne
+      }, index * 300); 
     });
 
     // 2. Afficher le logo après les logs
@@ -31,7 +31,7 @@ export default function BootScreen({ onFinish }) {
     // 3. Finir l'animation et passer à l'OS
     setTimeout(() => {
       onFinish();
-    }, BOOT_LOGS.length * 350 + 2000); // Reste 2s sur le logo
+    }, BOOT_LOGS.length * 350 + 2000);
   }, [onFinish]);
 
   return (

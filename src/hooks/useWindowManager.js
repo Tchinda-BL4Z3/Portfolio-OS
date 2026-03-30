@@ -1,36 +1,37 @@
 // src/hooks/useWindowManager.js
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
-export const useWindowManager = () => {
-    // Liste des IDs d'apps ouvertes ['about', 'terminal']
+export const useWindowManager = (onOpen, onClose) => {
   const [openApps, setOpenApps] = useState([]); 
   const [focusedApp, setFocusedApp] = useState(null);
-  const [nextZIndex, setNextZIndex] = useState(10);
+  const [zIndexCounter, setNextZIndex] = useState(10);
 
-  // Ouvrir une application
-  const openApp = (id) => {
-    if (!openApps.includes(id)) {
-      setOpenApps([...openApps, id]);
-    }
-    focusApp(id);
-  };
-
-  // Fermer une application
-  const closeApp = (id) => {
-    setOpenApps(openApps.filter((appId) => appId !== id));
-    if (focusedApp === id) setFocusedApp(null);
-  };
-
-  // Mettre la fenêtre au premier plan
-  const focusApp = (id) => {
+  const focusApp = useCallback((id) => {
     setFocusedApp(id);
     setNextZIndex(prev => prev + 1);
-  };
+  }, []);
+
+  const openApp = useCallback((id) => {
+    setOpenApps(prev => {
+      if (!prev.includes(id)) {
+        onOpen?.();
+        return [...prev, id];
+      }
+      return prev;
+    });
+    focusApp(id);
+  }, [onOpen, focusApp]);
+
+  const closeApp = useCallback((id) => {
+    setOpenApps(prev => prev.filter((appId) => appId !== id));
+    setFocusedApp(prev => prev === id ? null : prev);
+    onClose?.();
+  }, [onClose]);
 
   return {
     openApps,
     focusedApp,
-    nextZIndex,
+    zIndexCounter,
     openApp,
     closeApp,
     focusApp
